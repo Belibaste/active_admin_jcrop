@@ -13,7 +13,6 @@ module ActiveAdminJcrop
       end
 
       def active_admin_crop!(params)
-        
         CropFields.each {|f| self.send "#{f}=", params[f] }
 
         ::ActiveAdminJcrop::AssetEngine.crop!(self, self.crop_field) if self.active_admin_cropping?

@@ -30,7 +30,7 @@ module Formtastic
 
       def jcrop_feature
         if @object.send(method).present?
-          template.render(partial: "active_admin_jcrop/jcrop_modal", locals: {field: method, object: @object, jcrop_options: jcrop_options})
+          template.render(partial: "active_admin_jcrop/jcrop_modal", locals: {field: method, object: @object, target_class: target_class, jcrop_options: jcrop_options})
         else
           ''
         end
@@ -41,7 +41,10 @@ module Formtastic
         options[:jcrop_options].assert_valid_keys(*VALID_OPTIONS)
         options[:jcrop_options].reverse_merge!(setSelect: [0,0,100,100])
       end
-
+      
+      def target_class
+        options[:target_class] ||= @object.class.to_s.demodulize.underscore
+      end
     end
   end
 end
